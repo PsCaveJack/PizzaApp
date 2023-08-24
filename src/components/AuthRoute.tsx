@@ -7,7 +7,7 @@ export interface IAuthRouteProps {
     children:React.ReactNode;
 }
 
-const AuthRoute: React.FunctionComponent<IAuthRouteProps> = props => {
+const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
     const { children } = props
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)

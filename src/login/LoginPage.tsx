@@ -10,13 +10,8 @@ interface LoginCreds {
 }
 
 const LoginPage: React.FC = () => {
-  const navigate = useNavigate();
-  const [authing, setAuthing] = useState(false)
+    const navigate = useNavigate();
 
-
-  const signInWithEmail = async () => {
-    
-  }
     const [credentials, setCredentials] = useState<LoginCreds>({
         username: '',
         password: '',
@@ -33,7 +28,6 @@ const LoginPage: React.FC = () => {
       const handleLogin = () => {
         // Here you can implement your login logic using API calls or any authentication method
         console.log('Logging in with:', credentials);
-        setAuthing(true)
         signInWithEmailAndPassword(auth, credentials.username, credentials.password)
         .then((userCredential) => {
           console.log(userCredential)
