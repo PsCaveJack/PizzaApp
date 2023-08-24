@@ -1,5 +1,8 @@
 import { useState } from "react"
 import './LoginPage.css'
+import { signInWithEmailAndPassword} from "firebase/auth"
+import { useNavigate } from 'react-router-dom'
+import { auth } from "../firebase"
 
 interface LoginCreds {
     username: string,
@@ -7,6 +10,13 @@ interface LoginCreds {
 }
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [authing, setAuthing] = useState(false)
+
+
+  const signInWithEmail = async () => {
+    
+  }
     const [credentials, setCredentials] = useState<LoginCreds>({
         username: '',
         password: '',
@@ -23,7 +33,17 @@ const LoginPage: React.FC = () => {
       const handleLogin = () => {
         // Here you can implement your login logic using API calls or any authentication method
         console.log('Logging in with:', credentials);
+        setAuthing(true)
+        signInWithEmailAndPassword(auth, credentials.username, credentials.password)
+        .then((userCredential) => {
+          console.log(userCredential)
+          navigate('/')
+        }).catch((error) => {
+          console.log(error)
+        })
       };
+
+      
     
       return (
         <div className="login-page">
@@ -33,7 +53,7 @@ const LoginPage: React.FC = () => {
               <h3> Password: testing</h3>
             <form>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Email</label>
                 <input
                   type="text"
                   id="username"
