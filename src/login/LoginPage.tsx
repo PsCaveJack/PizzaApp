@@ -29,6 +29,8 @@ const LoginPage: React.FC = () => {
         <div className="login-page">
           <div className="login-card">
             <h2>Login</h2>
+            <h3>Demo Account: test1@test.com</h3>
+              <h3> Password: testing</h3>
             <form>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
