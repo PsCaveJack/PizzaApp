@@ -1,15 +1,15 @@
 import { useState } from "react"
-import './LoginPage.css'
-import { signInWithEmailAndPassword} from "firebase/auth"
+import './SignUpPage.css'
+import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
-import { auth } from "../firebase"
+import { auth } from "../../firebase"
 
 interface LoginCreds {
     username: string,
     password: string
 }
 
-const LoginPage: React.FC = () => {
+const SignUpPage: React.FC = () => {
     const navigate = useNavigate();
 
     const [credentials, setCredentials] = useState<LoginCreds>({
@@ -25,10 +25,10 @@ const LoginPage: React.FC = () => {
         }));
       };
     
-      const handleLogin = () => {
+      const handleSignUp = () => {
         // Here you can implement your login logic using API calls or any authentication method
         console.log('Logging in with:', credentials);
-        signInWithEmailAndPassword(auth, credentials.username, credentials.password)
+        createUserWithEmailAndPassword(auth, credentials.username, credentials.password)
         .then((userCredential) => {
           console.log(userCredential)
           navigate('/')
@@ -42,9 +42,7 @@ const LoginPage: React.FC = () => {
       return (
         <div className="login-page">
           <div className="login-card">
-            <h2>Login</h2>
-            <h3>Demo Account: test1@test.com</h3>
-              <h3> Password: testing</h3>
+            <h2>Sign Up</h2>
             <form>
               <div className="form-group">
                 <label htmlFor="username">Email</label>
@@ -66,8 +64,8 @@ const LoginPage: React.FC = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <button type="button" onClick={handleLogin}>
-                Login
+              <button type="button" onClick={handleSignUp}>
+                Sign Up
               </button>
             </form>
           </div>
@@ -75,4 +73,4 @@ const LoginPage: React.FC = () => {
       );
 }
 
-export default LoginPage
+export default SignUpPage
