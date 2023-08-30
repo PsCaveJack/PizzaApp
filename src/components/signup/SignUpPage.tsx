@@ -2,7 +2,8 @@ import { useState } from "react"
 import './SignUpPage.css'
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
-import { auth } from "../../firebase"
+import { auth, db } from "../../firebase"
+import { setDoc, collection, doc } from "firebase/firestore"
 
 interface LoginCreds {
     username: string,
@@ -25,11 +26,25 @@ const SignUpPage: React.FC = () => {
         }));
       };
     
-      const handleSignUp = () => {
+      const handleSignUp =  () => {
         // Here you can implement your login logic using API calls or any authentication method
         console.log('Logging in with:', credentials);
         createUserWithEmailAndPassword(auth, credentials.username, credentials.password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
+          
+          const ref = doc(db, 'users', userCredential.user.uid)
+          
+          // default data for customer
+          const customerData = {
+            customer: true
+          }
+          try {
+            await setDoc(ref, customerData)
+          }
+          catch (e){
+              console.log(e)
+              console.log('did not document')
+          }
           console.log(userCredential)
           navigate('/')
         }).catch((error) => {

@@ -1,7 +1,8 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { doc } from "firebase/firestore";
 
 export interface IAuthRouteProps {
     children:React.ReactNode;
@@ -17,6 +18,11 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = props => {
             if(user){
                 setLoading(false)
                 console.log('authorized')
+
+                // get user info from database
+                const userDocRef = doc(db, 'users', user.uid)
+
+                // navigate to homepage
                 navigate('/')
                 
             }

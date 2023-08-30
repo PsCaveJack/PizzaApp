@@ -31,7 +31,9 @@ const LoginPage: React.FC = () => {
         signInWithEmailAndPassword(auth, credentials.username, credentials.password)
         .then((userCredential) => {
           console.log(userCredential)
-          navigate('/')
+          // save user info
+          const uid = userCredential.user.uid
+          navigate('/?uid=${uid}')
         }).catch((error) => {
           console.log(error)
         })
